@@ -1,0 +1,7 @@
+type Blog {
+  id: ID! @unique
+  createdAt: DateTime!
+  title: String!
+  subTitle: String!
+  content: String!
+}

@@ -1,0 +1,10 @@
+# import Blog from "./generated/prisma.graphql"
+
+type Query {
+  info: String
+  returnBlogs: [Blog!]!
+}
+
+type Mutation {
+  post(title: String!, subTitle: String!, content: String!): Blog!
+}

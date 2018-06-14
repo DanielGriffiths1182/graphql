@@ -1,10 +1,5 @@
 const { GraphQLServer } = require('graphql-yoga')
-
-const typeDefs = `
-type Query {
-  info: String
-}
-`
+const { Prisma } = require('prisma-binding')
 
 const resolvers = {
   Query: {
@@ -13,7 +8,16 @@ const resolvers = {
 }
 
 const server = new GraphQLServer({
-  typeDefs,
-  resolvers
+  typeDefs: './src/schema.graphql',
+  resolvers,
+  context: req => ({
+    ...req,
+    db: new Prisma({
+      typeDefs: 'src/generated/prisma.graphql',
+      endpoint: 'https://us1.prisma.sh/daniel-1715f7/server/dev',
+      secret: 'mysecret123',
+      debug: true,
+    }),
+  }),
 })
 server.start(() => console.log(`server on http://localhost:4000`))
